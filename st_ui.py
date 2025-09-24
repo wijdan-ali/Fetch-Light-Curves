@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+
+
 st.title("Fetch Light Curves 1.0")
 st.markdown(f"""
     <p>Made By <a href = "https://www.linkedin.com/in/wijdan-ali-374793288/" style = "font-weight:bold; text-decoration:none;">Wijdan Ali</a></p>
@@ -47,18 +49,22 @@ st.write(f"You selected: {option}")
 
 try:
     lc = search_result[selected_index].download(download_dir=None)
+    lc = lc[lc.quality == 0] 
+    lc = lc.remove_nans()
+    lc = lc.remove_outliers(sigma = 5)
     lc = lc.normalize()
+    lc = lc.flatten(window_length=401)
     time = lc.time.value
     flux = lc.flux.value
     mask = np.isfinite(time) & np.isfinite(flux)
     time = time[mask]
     flux = flux[mask]
+    
 
     df = pd.DataFrame({
             "BJD - 2454833": time,
             "Normalized Flux": flux
         })
-    @st.cache_data
     def convert_for_download(df):
         return df.to_csv(index=False).encode("utf-8")
 
@@ -74,11 +80,13 @@ try:
         mime="text/csv",
         icon=":material/download:",
     )
-    if st.button("Preview Light Curve", on_click=lc.plot):
+    if st.button("Quick Preview"):
+        plt.figure(figsize=(15,5))
         plt.title(f"{target} Light Curve {selected_year}")
-        plt.xlabel("BJD - 2454833")
-        plt.ylabel("Normalized Flux")
-        plt.grid()
+        plt.scatter(lc.time.value, lc.flux.value, s=2, color='blue', alpha=0.2)  # scatter
+        plt.plot(lc.time.value, lc.flux.value, color='red')
+        plt.xticks([])
+        plt.yticks([])
         st.pyplot(plt)
 
 except:
