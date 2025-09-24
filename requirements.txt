@@ -1,5 +1,5 @@
 streamlit
 lightkurve
-matplotlib.pyplot
+matplotlib
 numpy
 pandas
