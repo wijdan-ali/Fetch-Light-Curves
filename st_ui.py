@@ -95,6 +95,6 @@ except:
 
 st.divider()
 st.markdown(f"""
-    <p> <a href = "https://www.linkedin.com/in/wijdan-ali-374793288/" style = "font-weight:bold; text-decoration:none;">Transit Light Curve Guide</a>  |  <a href = "https://wijdanali7869.wixsite.com/neoclimex" style = "font-weight:bold; text-decoration:none;">NeoClimex</a> | <a href = "mailto:wijdan.nadeem@gmail.com" style = "font-weight:bold; text-decoration:none;">Email Me</a></p>
+    <p> <a href = "https://wijdan-ali.github.io/Transit-Light-Curve-Guide/" style = "font-weight:bold; text-decoration:none;">Transit Light Curve Guide</a>  |  <a href = "https://wijdanali7869.wixsite.com/neoclimex" style = "font-weight:bold; text-decoration:none;">NeoClimex</a> | <a href = "mailto:wijdan.nadeem@gmail.com" style = "font-weight:bold; text-decoration:none;">Email Me</a></p>
 """, unsafe_allow_html=True)
 
